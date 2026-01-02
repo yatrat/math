@@ -1,3 +1,5 @@
+document.addEventListener("DOMContentLoaded", function () {
+
 const amount = document.getElementById("amount");
 const type = document.getElementById("calculation-type");
 const customBox = document.getElementById("custom-rate-container");
@@ -17,7 +19,7 @@ const eff = document.getElementById("eff");
 let currentRate = 5;
 let isCustom = false;
 
-// Slab selection
+// Slab click
 slabs.forEach(btn => {
   btn.addEventListener("click", () => {
     slabs.forEach(s => s.classList.remove("active"));
@@ -37,7 +39,7 @@ slabs.forEach(btn => {
   });
 });
 
-// Custom rate input
+// Custom input
 customInput.addEventListener("input", () => {
   if (isCustom) {
     currentRate = parseFloat(customInput.value) || 0;
@@ -48,17 +50,11 @@ customInput.addEventListener("input", () => {
 // Calculate
 calcBtn.addEventListener("click", () => {
   const amt = parseFloat(amount.value);
-  if (!amt || amt <= 0) {
-    alert("Enter a valid amount greater than 0");
-    return;
-  }
+  if (!amt || amt <= 0) return alert("Enter valid amount");
 
   if (isCustom) {
     const r = parseFloat(customInput.value);
-    if (isNaN(r) || r < 0 || r > 100) {
-      alert("Custom GST must be between 0 and 100");
-      return;
-    }
+    if (isNaN(r) || r < 0 || r > 100) return alert("GST must be 0–100");
     currentRate = r;
   }
 
@@ -104,4 +100,6 @@ resetBtn.addEventListener("click", () => {
   typed.textContent = "Excluding GST";
   gstp.textContent = "0.00%";
   eff.textContent = "0.00%";
+});
+
 });
